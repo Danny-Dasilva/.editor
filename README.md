@@ -5,13 +5,13 @@ nvim dotfiles for simple editor
 
 ### cloning files / Setup
 
-`git clone --bare https://github.com/Danny-Dasilva/.dotfiles.git` (or your fork)
+`git clone --bare https://github.com/Danny-Dasilva/.editor.git` (or your fork)
 
-`echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"' >> $HOME/.dotfiles`
+`echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.editor.git/ --work-tree=$HOME"' >> $HOME/.dotfiles`
 
 `source ~/.dotfiles `
 
-`dotfiles checkout --force`
+`editor checkout --force`
 
 
 ### How to commit or add changes
@@ -26,7 +26,7 @@ nvim dotfiles for simple editor
 
 ### in case of no origin error
 
-`dotfiles remote add origin https://github.com/Danny-Dasilva/.dotfiles.git`
+`dotfiles remote add origin https://github.com/Danny-Dasilva/.editor.git`
 
 
 ### How to update from repo
