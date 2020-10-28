@@ -11,7 +11,7 @@ nvim dotfiles for simple editor
 
 `source ~/.dotfiles `
 
-`editor checkout --force`
+`dotfiles checkout --force`
 
 
 ### How to commit or add changes
