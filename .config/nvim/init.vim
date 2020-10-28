@@ -58,7 +58,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       " File search
     Plug 'junegunn/fzf.vim'  
     "Theme
-    Plug 'tomasiser/vim-code-dark'
+    "Plug 'tomasiser/vim-code-dark'
+    Plug 'christianchiarulli/nvcode.vim'
     Plug 'itchyny/lightline.vim'                                              " Lightline statusbar
     Plug 'mengelbrecht/lightline-bufferline'
     "Ide plugins
@@ -120,7 +121,7 @@ nnoremap <S-Tab> :bprevious<CR>
 " 4. COLORS AND STATUS LINE
 " ==============================================================================
 let g:lightline = {
-      \ 'colorscheme': 'codedark',
+      \ 'colorscheme': 'nvcode',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
       \ },
@@ -136,7 +137,7 @@ let g:lightline = {
       \ }
       \ }
 set bg=dark
-colorscheme codedark 
+colorscheme nvcode 
 
 
 " Always show statusline
@@ -177,6 +178,7 @@ let g:coc_global_extensions = [
   \'coc-python',
   \'coc-go',
   \'coc-json',
+  \'coc-tsserver',
   \'coc-css',
   \'coc-html',
   \'coc-prettier',
