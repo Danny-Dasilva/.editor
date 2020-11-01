@@ -4,5 +4,6 @@
 	"python.linting.enabled": true,
 	"python.pythonPath": "python3",
 	"diagnostic.checkCurrentLine": true,
-	"emmet.includeLanguages": {"htmldjango": "html"}
+	"emmet.includeLanguages": {"htmldjango": "html"},
+	"explorer.icon.enableNerdfont": true
 }

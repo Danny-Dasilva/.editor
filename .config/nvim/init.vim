@@ -58,12 +58,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       " File search
     Plug 'junegunn/fzf.vim'  
     "Theme
-    "Plug 'tomasiser/vim-code-dark'
     Plug 'christianchiarulli/nvcode.vim'
     Plug 'itchyny/lightline.vim'                                              " Lightline statusbar
     Plug 'mengelbrecht/lightline-bufferline'
     "Ide plugins
     Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
+    Plug 'preservim/nerdtree'
     "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'vim-python/python-syntax'                                           " added python syntax
     
@@ -136,8 +136,15 @@ let g:lightline = {
       \   'buffers': 'tabsel'
       \ }
       \ }
-set bg=dark
-colorscheme nvcode 
+
+hi Comment cterm=italic
+let g:nvcode_hide_endofbuffer=1
+let g:nvcode_terminal_italics=1
+let g:nvcode_termcolors=256
+syntax on
+colorscheme nvcode
+
+set encoding=UTF-8
 
 
 " Always show statusline
@@ -159,7 +166,7 @@ tnoremap <Esc> <C-\><C-n>
 " ==============================================================================
 
 "Chadtree/nerdtree toggle
-nmap <C-b> :CocCommand explorer<CR>
+nmap <C-b> :CocCommand explorer <CR>
 
 "szf fuzzy finder 
 nmap <C-p> :Files<CR>           "search files in current dir 
@@ -192,7 +199,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> <A-d> :call <SID>show_documentation()<CR>
+nnoremap <silent>  <C-k> :call <SID>show_documentation()<CR>
 
 
 function! s:show_documentation()
@@ -263,7 +270,12 @@ nmap <leader>rn <Plug>(coc-rename)
 "use system keyboard
 set clipboard+=unnamedplus
 
-
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
 
 "Leader R to reset vim 
 noremap <Leader>r :so $MYVIMRC<CR>
