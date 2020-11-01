@@ -21,7 +21,7 @@ nvim dotfiles for simple editor
 `dotfiles commit -m "My message"`
 
 
-`dotfiles push origin master`
+`dotfiles push origin main`
 
 
 ### in case of no origin error
