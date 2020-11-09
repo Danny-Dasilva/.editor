@@ -287,4 +287,12 @@ inoremap <A-l> <C-o>A
 "CTRL A for select all
 nnoremap <C-A> ggVG
 
+"display keypress
+set showcmd
 
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+"dont fold methods of classes
+"set foldnestmax=2
+au BufNewFile,BufRead *.py
+    \ set foldmethod=indent
+nnoremap <space> za
