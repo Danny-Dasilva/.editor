@@ -5,5 +5,26 @@
 	"python.pythonPath": "python3",
 	"diagnostic.checkCurrentLine": true,
 	"emmet.includeLanguages": {"htmldjango": "html"},
-	"explorer.icon.enableNerdfont": true
+	"explorer.icon.enableNerdfont": true,
+    "languageserver": {
+     "go": {
+       "command": "gopls",
+       "rootPatterns": ["go.mod"],
+       "trace.server": "verbose",
+       "filetypes": ["go"]
+      }
+    },
+    "snippets.extends": {
+    "typescript": [
+      "typescriptreact"
+    ]
+  },
+  "eslint.enable": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
+
 }

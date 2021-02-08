@@ -58,9 +58,15 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       " File search
     Plug 'junegunn/fzf.vim'  
     "Theme
-    Plug 'christianchiarulli/nvcode.vim'
+    Plug 'christianchiarulli/nvcode-color-schemes.vim'
+    Plug 'tomasiser/vim-code-dark'
     Plug 'itchyny/lightline.vim'                                              " Lightline statusbar
     Plug 'mengelbrecht/lightline-bufferline'
+
+
+
+    Plug 'leafgarland/typescript-vim'
+    Plug 'peitalin/vim-jsx-typescript'
     "Ide plugins
     Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
     Plug 'preservim/nerdtree'
@@ -121,7 +127,7 @@ nnoremap <S-Tab> :bprevious<CR>
 " 4. COLORS AND STATUS LINE
 " ==============================================================================
 let g:lightline = {
-      \ 'colorscheme': 'nvcode',
+      \ 'colorscheme': 'codedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
       \ },
@@ -138,11 +144,11 @@ let g:lightline = {
       \ }
 
 hi Comment cterm=italic
-let g:nvcode_hide_endofbuffer=1
-let g:nvcode_terminal_italics=1
-let g:nvcode_termcolors=256
+let g:codedark_hide_endofbuffer=1
+let g:codedark_terminal_italics=1
+let g:codedark_termcolors=256
 syntax on
-colorscheme nvcode
+colorscheme codedark 
 
 set encoding=UTF-8
 
@@ -186,6 +192,7 @@ let g:coc_global_extensions = [
   \'coc-go',
   \'coc-json',
   \'coc-tsserver',
+  \'coc-eslint',
   \'coc-css',
   \'coc-html',
   \'coc-prettier',
@@ -296,3 +303,7 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 au BufNewFile,BufRead *.py
     \ set foldmethod=indent
 nnoremap <space> za
+
+
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
