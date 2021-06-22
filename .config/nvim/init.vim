@@ -58,20 +58,23 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       " File search
     Plug 'junegunn/fzf.vim'  
     "Theme
-    Plug 'christianchiarulli/nvcode-color-schemes.vim'
-    Plug 'tomasiser/vim-code-dark'
+    "Plug 'christianchiarulli/nvcode-color-schemes.vim'
+    "Plug 'tomasiser/vim-code-dark'
+    Plug 'wojciechkepka/vim-github-dark'
     Plug 'itchyny/lightline.vim'                                              " Lightline statusbar
     Plug 'mengelbrecht/lightline-bufferline'
 
 
+    "Language support
 
     Plug 'leafgarland/typescript-vim'
     Plug 'peitalin/vim-jsx-typescript'
+    Plug 'vim-python/python-syntax'                                           " added python syntax
+    "Plug 'fatih/vim-go'
     "Ide plugins
     Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
     Plug 'preservim/nerdtree'
     "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-    Plug 'vim-python/python-syntax'                                           " added python syntax
     
     Plug 'ryanoasis/vim-devicons'                                             " Icons 
     Plug 'scrooloose/nerdcommenter'                                           " auto comment 
@@ -127,7 +130,7 @@ nnoremap <S-Tab> :bprevious<CR>
 " 4. COLORS AND STATUS LINE
 " ==============================================================================
 let g:lightline = {
-      \ 'colorscheme': 'codedark',
+      \ 'colorscheme': 'ghdark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
       \ },
@@ -144,11 +147,11 @@ let g:lightline = {
       \ }
 
 hi Comment cterm=italic
-let g:codedark_hide_endofbuffer=1
-let g:codedark_terminal_italics=1
-let g:codedark_termcolors=256
+"let g:codedark_hide_endofbuffer=1
+"let g:codedark_terminal_italics=1
+"let g:codedark_termcolors=256
 syntax on
-colorscheme codedark 
+colorscheme ghdark 
 
 set encoding=UTF-8
 
@@ -297,13 +300,37 @@ nnoremap <C-A> ggVG
 "display keypress
 set showcmd
 
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-"dont fold methods of classes
-"set foldnestmax=2
-au BufNewFile,BufRead *.py
-    \ set foldmethod=indent
-nnoremap <space> za
+"command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+""dont fold methods of classes
+""set foldnestmax=2
+"au BufNewFile,BufRead *.py
+    "\ set foldmethod=indent
+"nnoremap <space> za
 
 
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
+"fu PyRun() range
+  "echo system('python -c ' . shellescape(join(getline(a:firstline, a:lastline), "\n")))
+"endf
+"vmap <C-F6> :call PyRun()<CR>
+
+" ==============================================================================
+" 8. Programming Language Specific 
+" ==============================================================================
+
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+let g:go_fmt_command = "goimports"
+let g:go_gocode_propose_source = 0
+let g:go_auto_type_info = 1
+let g:go_version_warning = 0
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
