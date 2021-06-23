@@ -6,14 +6,6 @@
 	"diagnostic.checkCurrentLine": true,
 	"emmet.includeLanguages": {"htmldjango": "html"},
 	"explorer.icon.enableNerdfont": true,
-    "languageserver": {
-     "go": {
-       "command": "gopls",
-       "rootPatterns": ["go.mod"],
-       "trace.server": "verbose",
-       "filetypes": ["go"]
-      }
-    },
     "snippets.extends": {
     "typescript": [
       "typescriptreact"
