@@ -7,18 +7,3 @@ let g:lightline.subseparator         = { 'left': "\ue0b9", 'right': "\ue0b9" }
 let g:lightline.tabline_separator    = { 'left': "\ue0bc", 'right': "\ue0ba" }
 let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
 
-"let g:lightline.active = {
-"            \ 'left': [ [ 'mode', 'paste' ],
-"            \           [ 'readonly', 'filename', 'modified'] ],
-"            \ 'right': [ [ 'filetype', 'lineinfo' ] ]
-"            \ }
-"let g:lightline.inactive = {
-"            \ 'left': [ [ 'filename', 'modified' ]],
-"            \ 'right': [ [ 'filetype', 'lineinfo' ] ]
-"            \ }
-"let g:lightline.tabline = {
-"            \ 'left': [ [ 'tabs' ] ],
-"            \ 'right': [ [ 'gitbranch' ],
-"            \ [ 'gitstatus' ] ]
-"            \ }
-
