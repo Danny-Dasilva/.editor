@@ -63,6 +63,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'wojciechkepka/vim-github-dark'
     Plug 'itchyny/lightline.vim'                                              " Lightline statusbar
     Plug 'mengelbrecht/lightline-bufferline'
+    Plug 'preservim/tagbar'
 
 
     "Language support
@@ -263,6 +264,7 @@ set updatetime=300
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
+nmap <F8> :TagbarOpen fj<CR>
 " ==============================================================================
 " 7. EDITING
 " ==============================================================================
