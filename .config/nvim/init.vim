@@ -178,9 +178,12 @@ tnoremap <Esc> <C-\><C-n>
 nmap <C-b> :CocCommand explorer <CR>
 
 "szf fuzzy finder 
-nmap <C-e> :Files<CR>           "search files in current dir 
-nnoremap <leader>g :Rg<CR>      "ripgrep
-map <C-f> :BLines<CR>           "search current files
+"search files in current dir
+nmap <C-e> :Files<CR>
+"ripgrep bound to leader g
+nnoremap <leader>g :Rg<CR>
+"search current files
+nnoremap<C-f> :BLines<CR>
 
 "Comment text lines
 map <C-_>   <Plug>NERDCommenterToggle
