@@ -182,8 +182,11 @@ nmap <C-b> :CocCommand explorer <CR>
 nmap <C-e> :Files<CR>
 "ripgrep bound to leader g
 nnoremap <leader>g :Rg<CR>
-
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+" Allow passing optional flags into the Rg command.
+"   Example: :Rg myterm -g '.md'
+"
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep("Rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 "search current files
 nnoremap<C-f> :BLines<CR>
 
