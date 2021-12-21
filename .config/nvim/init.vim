@@ -186,7 +186,8 @@ nnoremap <leader>g :Rg<CR>
 "   Example: :Rg myterm -g '.md'
 "
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep("Rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+      \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .
+      \ <q-args>, 1, fzf#vim#with_preview(), <bang>0)
 "search current files
 nnoremap<C-f> :BLines<CR>
 
