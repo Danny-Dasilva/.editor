@@ -178,7 +178,7 @@ tnoremap <Esc> <C-\><C-n>
 nmap <C-b> :CocCommand explorer <CR>
 
 "szf fuzzy finder 
-nmap <C-p> :Files<CR>           "search files in current dir 
+nmap <C-e> :Files<CR>           "search files in current dir 
 nnoremap <leader>g :Rg<CR>      "ripgrep
 map <C-f> :BLines<CR>           "search current files
 
