@@ -60,6 +60,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+    "Git
+    Plug 'tpope/vim-fugitive'
     "Theme
     "Plug 'christianchiarulli/nvcode-color-schemes.vim'
     "Plug 'tomasiser/vim-code-dark'
@@ -75,11 +77,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'leafgarland/typescript-vim'
     Plug 'peitalin/vim-jsx-typescript'
     Plug 'vim-python/python-syntax'                                           " added python syntax
-    Plug 'SkyLeach/pudb.vim'
     "Plug 'fatih/vim-go'
     "Ide plugins
     Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
-    Plug 'preservim/nerdtree'
     "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     
     Plug 'ryanoasis/vim-devicons'                                             " Icons 
