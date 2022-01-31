@@ -67,10 +67,12 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 
     "Language support
+    Plug 'puremourning/vimspector'
 
     Plug 'leafgarland/typescript-vim'
     Plug 'peitalin/vim-jsx-typescript'
     Plug 'vim-python/python-syntax'                                           " added python syntax
+    Plug 'SkyLeach/pudb.vim'
     "Plug 'fatih/vim-go'
     "Ide plugins
     Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
@@ -264,7 +266,7 @@ set updatetime=300
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-nmap <F8> :TagbarOpen fj<CR>
+"nmap <F8> :TagbarOpen fj<CR>
 " ==============================================================================
 " 7. EDITING
 " ==============================================================================
@@ -345,3 +347,18 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
+
+nnoremap <Leader>es :call tts#Speak()<CR>
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
+
+nnoremap <Leader>dd :call vimspector#Launch()<CR>
+nnoremap <Leader>de :call vimspector#Reset()<CR>
+nnoremap <Leader>dc :call vimspector#Continue()<CR>
+
+nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
+
+nmap <Leader>dk <Plug>VimspectorRestart
+nmap <Leader>dh <Plug>VimspectorStepOut
+nmap <Leader>dl <Plug>VimspectorStepInto
+nmap <Leader>dj <Plug>VimspectorStepOver
