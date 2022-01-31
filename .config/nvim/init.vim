@@ -57,6 +57,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Navigation
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       " File search
     Plug 'junegunn/fzf.vim'  
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
     "Theme
     "Plug 'christianchiarulli/nvcode-color-schemes.vim'
     "Plug 'tomasiser/vim-code-dark'
@@ -182,9 +184,16 @@ nmap <C-b> :CocCommand explorer <CR>
 
 "szf fuzzy finder 
 "search files in current dir
-nmap <C-e> :Files<CR>
+nmap <C-e> <cmd>Telescope find_files<CR>
+"search files in current dir using grep
+nmap <C-S-F> <cmd>Telescope live_grep<CR>
+
+
+"search files in current dir
+"nmap <C-e> :Files<CR>
 "ripgrep bound to leader g
 nnoremap <leader>g :Rg<CR>
+
 " Allow passing optional flags into the Rg command.
 "   Example: :Rg myterm -g '.md'
 "
@@ -349,6 +358,8 @@ let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
 
 nnoremap <Leader>es :call tts#Speak()<CR>
+
+#TODO reconfigure
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 
 nnoremap <Leader>dd :call vimspector#Launch()<CR>
