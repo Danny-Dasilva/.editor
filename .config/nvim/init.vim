@@ -359,7 +359,7 @@ let g:go_auto_sameids = 1
 
 nnoremap <Leader>es :call tts#Speak()<CR>
 
-#TODO reconfigure
+"TODO reconfigure
 let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 
 nnoremap <Leader>dd :call vimspector#Launch()<CR>
