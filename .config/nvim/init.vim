@@ -57,6 +57,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Navigation
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                       " File search
     Plug 'junegunn/fzf.vim'  
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     "Theme
@@ -186,7 +187,7 @@ nmap <C-b> :CocCommand explorer <CR>
 "search files in current dir
 nmap <C-e> <cmd>Telescope find_files<CR>
 "search files in current dir using grep
-nmap <C-S-F> <cmd>Telescope live_grep<CR>
+nmap <C-f> <cmd>Telescope live_grep<CR>
 
 
 "search files in current dir
@@ -197,11 +198,11 @@ nnoremap <leader>g :Rg<CR>
 " Allow passing optional flags into the Rg command.
 "   Example: :Rg myterm -g '.md'
 "
-command! -bang -nargs=* Rg
-      \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .
-      \ <q-args>, 1, fzf#vim#with_preview(), <bang>0)
-"search current files
-nnoremap<C-f> :BLines<CR>
+"command! -bang -nargs=* Rg
+      "\ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .
+      "\ <q-args>, 1, fzf#vim#with_preview(), <bang>0)
+""search current files
+"nnoremap<C-f> :BLines<CR>
 
 "Comment text lines
 map <C-_>   <Plug>NERDCommenterToggle
