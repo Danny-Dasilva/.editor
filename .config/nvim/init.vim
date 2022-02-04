@@ -81,8 +81,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     "Ide plugins
     Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
     "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-    
-    Plug 'ryanoasis/vim-devicons'                                             " Icons 
+    Plug 'kyazdani42/nvim-web-devicons'                                       " Icons 
+    "Plug 'ryanoasis/vim-devicons'                                             " Icons 
     Plug 'scrooloose/nerdcommenter'                                           " auto comment 
 call plug#end()
 
@@ -138,11 +138,14 @@ nnoremap <S-Tab> :bprevious<CR>
 let g:lightline = {
       \ 'colorscheme': 'ghdark',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'tabline': {
       \   'left': [ ['buffers'] ],
       \   'right': [ ['close'] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
       \ },
       \ 'component_expand': {
       \   'buffers': 'lightline#bufferline#buffers'
@@ -374,3 +377,42 @@ nmap <Leader>dk <Plug>VimspectorRestart
 nmap <Leader>dh <Plug>VimspectorStepOut
 nmap <Leader>dl <Plug>VimspectorStepInto
 nmap <Leader>dj <Plug>VimspectorStepOver
+
+
+
+
+"Keep cursor centered on search
+nnoremap n nnzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ'z
+
+lua <<EOF
+require('telescope').setup{
+    defaults = {
+      prompt_prefix = "   ",
+      selection_caret = "  ",
+      entry_prefix = "  ",
+      initial_mode = "insert",
+      selection_strategy = "reset",
+      sorting_strategy = "ascending",
+      layout_strategy = "horizontal",
+        layout_config = {
+                 horizontal = {
+                    prompt_position = "top",
+                    preview_width = 0.55,
+                    results_width = 0.8,
+                 },
+                 vertical = {
+                    mirror = false,
+                 },
+                 width = 0.87,
+                 height = 0.80,
+                 preview_cutoff = 120,
+              },
+      borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+      color_devicons = true,
+    }
+    
+}
+EOF
+
