@@ -79,11 +79,18 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'vim-python/python-syntax'                                           " added python syntax
     "Plug 'fatih/vim-go'
     "Ide plugins
-    Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
+    "Plug 'neoclide/coc.nvim',{'branch': 'release'}                            " Vs code like intellisense
     "Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
     Plug 'kyazdani42/nvim-web-devicons'                                       " Icons 
     "Plug 'ryanoasis/vim-devicons'                                             " Icons 
     Plug 'scrooloose/nerdcommenter'                                           " auto comment 
+    " Tree and intellisense
+    Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+
+    Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+    Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+    Plug 'neovim/nvim-lspconfig'
+
 call plug#end()
 
 
@@ -184,7 +191,7 @@ tnoremap <Esc> <C-\><C-n>
 " ==============================================================================
 
 "Chadtree/nerdtree toggle
-nmap <C-b> :CocCommand explorer <CR>
+nmap <C-b> <cmd>CHADopen<cr> 
 
 "szf fuzzy finder 
 "search files in current dir
@@ -212,63 +219,63 @@ map <C-_>   <Plug>NERDCommenterToggle
 map <A-c>   <Plug>NERDCommenterToggle
 
 " coc languageextensions
-let g:coc_global_extensions = [
-  \'coc-snippets',
-  \'coc-explorer',
-  \'coc-pairs',
-  \'coc-python',
-  \'coc-go',
-  \'coc-json',
-  \'coc-tsserver',
-  \'coc-eslint',
-  \'coc-css',
-  \'coc-html',
-  \'coc-prettier',
-  \'coc-highlight',
-  \'coc-emmet'
-  \ ]
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+"let g:coc_global_extensions = [
+  "\'coc-snippets',
+  "\'coc-explorer',
+  "\'coc-pairs',
+  "\'coc-python',
+  "\'coc-go',
+  "\'coc-json',
+  "\'coc-tsserver',
+  "\'coc-eslint',
+  "\'coc-css',
+  "\'coc-html',
+  "\'coc-prettier',
+  "\'coc-highlight',
+  "\'coc-emmet'
+  "\ ]
+"" Remap keys for gotos
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent>  <C-k> :call <SID>show_documentation()<CR>
+"nnoremap <silent>  <C-k> :call <SID>show_documentation()<CR>
 
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+"function! s:show_documentation()
+  "if (index(['vim','help'], &filetype) >= 0)
+    "execute 'h '.expand('<cword>')
+  "else
+    "call CocAction('doHover')
+  "endif
+"endfunction
 
 "added references
-nmap <leader>u <Plug>(coc-references)
+"nmap <leader>u <Plug>(coc-references)
+
+""make sure enter does not spawn a new line if autofill tab is on screen
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 
-"make sure enter does not spawn a new line if autofill tab is on screen
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+""enable highlight list swapping
+"let g:coc_enable_locationlist = 0
+"autocmd User CocLocationsChange CocList --no-quit --normal location
 
 
-"enable highlight list swapping
-let g:coc_enable_locationlist = 0
-autocmd User CocLocationsChange CocList --no-quit --normal location
+""use alt n(ext) and b(ack) for navigating through coc highlights
+"nnoremap <silent><nowait> <A-n> :CocCommand document.jumpToNextSymbol<CR>
+"nnoremap <silent><nowait> <A-b> :CocCommand document.jumpToPrevSymbol<CR>
+
+""use tab and shift tab to select coc autocomplete
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 
-"use alt n(ext) and b(ack) for navigating through coc highlights
-nnoremap <silent><nowait> <A-n> :CocCommand document.jumpToNextSymbol<CR>
-nnoremap <silent><nowait> <A-b> :CocCommand document.jumpToPrevSymbol<CR>
+"" Highlight the symbol and its references when holding the cursor.
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
-"use tab and shift tab to select coc autocomplete
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
@@ -277,9 +284,18 @@ set updatetime=300
 
 
 " prettier command for coc
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+"command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "nmap <F8> :TagbarOpen fj<CR>
+
+""quick snippets and formatting
+"nnoremap <silent> <A-a> :CocAction('doHover')<CR>
+"vnoremap <silent> <A-a> :CocAction('doHover')<CR>
+
+"" Symbol renaming.
+"nmap <leader>rn <Plug>(coc-rename)
+
+
 " ==============================================================================
 " 7. EDITING
 " ==============================================================================
@@ -295,16 +311,12 @@ inoremap kj <Esc>
 "vnoremap kj <Esc>
 " esc in command mode
 cnoremap kj <C-C>
-
-"quick snippets and formatting
-nnoremap <silent> <A-a> :CocAction('doHover')<CR>
-vnoremap <silent> <A-a> :CocAction('doHover')<CR>
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-"use system keyboard
+"use system clipboard 
 set clipboard+=unnamedplus
+"Copy to system register
+vnoremap <C-c> "*y :let @+=@*<CR>
+"Paste from system register
+map <C-v> "+P<CR>
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -416,3 +428,43 @@ require('telescope').setup{
 }
 EOF
 
+lua <<EOF
+require'lspconfig'.pyright.setup{}
+local opts = { noremap=true, silent=true }
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'pyright', }
+for _, lsp in pairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      -- This will be the default in neovim 0.7+
+      debounce_text_changes = 150,
+    }
+  }
+end
+EOF
