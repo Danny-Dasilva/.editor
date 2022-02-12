@@ -305,6 +305,10 @@ nmap <leader>rn <Plug>(coc-rename)
 
 "use system keyboard
 set clipboard+=unnamedplus
+"Copy to system register
+vnoremap <C-c> "*y :let @+=@*<CR>
+"Paste from system register
+map <C-v> "+P<CR>
 
 " show existing tab with 4 spaces width
 set tabstop=4
