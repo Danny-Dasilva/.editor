@@ -1,7 +1,4 @@
-"     ____    
-"    / __ \   __
-"   / / / /__/ / Danny Dasilva
-"  / /_/ / _  /  dannydasilva.solutions@gmail.com
+"     ____    / __ \   __ / / / /__/ / Danny Dasilva / /_/ / _  /  dannydasilva.solutions@gmail.com
 " /____,'\_,_/   https://github.com/Danny-Dasilva
 " 
 " A customized init.vim for neovim (https://neovim.io/)
@@ -70,7 +67,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mengelbrecht/lightline-bufferline'
     Plug 'preservim/tagbar'
 
-
     "Language support
     Plug 'puremourning/vimspector'
 
@@ -105,17 +101,17 @@ set fillchars+=vert:\▏
 "make new splits behave normally 
 set splitbelow splitright
 
-" Remap splits navigation to just SHIFT+ hjkl
-nnoremap <S-h> <C-w>h
-nnoremap <S-j> <C-w>j
-nnoremap <S-k> <C-w>k
-nnoremap <S-l> <C-w>l
+ "Remap splits navigation to just SHIFT+ hjkl
+nnoremap <S-H> <C-w>h
+nnoremap <S-j> <C-w>j 
+nnoremap <S-K> <C-w>k
+nnoremap <S-L> <C-w>l
 
 "Remap swap window to CTRL + hjkl
-nnoremap <C-h> <C-w>H
-nnoremap <C-j> <C-w>J
-nnoremap <C-k> <C-w>K
-nnoremap <C-l> <C-w>L
+nnoremap <C-H> <C-w>H
+nnoremap <C-J> <C-w>J
+nnoremap <C-K> <C-w>K
+nnoremap <C-L> <C-w>L
 
 "Adjust split sizes with CTRL + arrow keys
 noremap <silent> <C-Left> :vertical resize +3<CR>
@@ -130,7 +126,8 @@ map <Leader>tk <C-w>t<C-w>K
 "tab to cycle through buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-
+" close all splits/windows except the one in focus
+nnoremap <leader>q <C-w>o
 
 " ==============================================================================
 " 4. COLORS AND STATUS LINE
@@ -145,7 +142,8 @@ let g:lightline = {
       \   'right': [ ['close'] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'gitbranch': 'FugitiveHead',
+      \   'blame': 'LightlineGitBlame'
       \ },
       \ 'component_expand': {
       \   'buffers': 'lightline#bufferline#buffers'
@@ -155,6 +153,11 @@ let g:lightline = {
       \ }
       \ }
 
+function! LightlineGitBlame() abort
+  let blame = get(b:, 'coc_git_blame', '')
+  " return blame
+  return winwidth(0) > 120 ? blame : ''
+endfunction
 hi Comment cterm=italic
 "let g:codedark_hide_endofbuffer=1
 "let g:codedark_terminal_italics=1
@@ -217,15 +220,18 @@ let g:coc_global_extensions = [
   \'coc-explorer',
   \'coc-pairs',
   \'coc-python',
+  \'coc-pyright',
   \'coc-go',
   \'coc-json',
   \'coc-tsserver',
+  \'coc-vetur',
   \'coc-eslint',
   \'coc-css',
   \'coc-html',
   \'coc-prettier',
   \'coc-highlight',
-  \'coc-emmet'
+  \'coc-emmet',
+  \'coc-git'
   \ ]
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -234,8 +240,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent>  <C-k> :call <SID>show_documentation()<CR>
-
+nnoremap <silent>  <C-k><C-i> :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -283,6 +288,12 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " ==============================================================================
 " 7. EDITING
 " ==============================================================================
+
+
+" replace a word with yanked text
+nnoremap rw viwpyiw
+" replace till the end of line with yanked text
+nnoremap rl Pl"_D
 "python syntax highlight
 let g:python_highlight_all = 1
 
@@ -308,8 +319,12 @@ set clipboard+=unnamedplus
 "Copy to system register
 vnoremap <C-c> "*y :let @+=@*<CR>
 "Paste from system register
-map <C-v> "+P<CR>
+"map <C-v> "+P<CR>
+" copy file name to the clipboard
+nnoremap yf :let @+=expand("%")<CR>
 
+"copy current file to buffer
+vnoremap <leader>y :call functions#CompleteYank()<CR>
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
@@ -388,7 +403,7 @@ nmap <Leader>dj <Plug>VimspectorStepOver
 "Keep cursor centered on search
 nnoremap n nnzzzv
 nnoremap N Nzzzv
-nnoremap J mzJ'z
+"nnoremap J mzJ'z
 
 lua <<EOF
 require('telescope').setup{
@@ -420,4 +435,13 @@ require('telescope').setup{
 }
 EOF
 
+"paste system buffer into match specific ripgrep
+nnoremap <expr> <leader>sd ":lua require('telescope.builtin').live_grep({ additional_args = function(opts) return { '-F', } end })<cr>" . expand(@+)
 
+nnoremap <expr> <leader>sF ':Telescope grep_string<cr>' . expand(@+)
+let g:coc_default_semantic_highlight_groups = 1
+let g:python_highlight_all = 1
+
+if !exists(":Gdiffoff")
+  command Gdiffoff diffoff | q | Gedit
+endif
