@@ -1,4 +1,7 @@
-"     ____    / __ \   __ / / / /__/ / Danny Dasilva / /_/ / _  /  dannydasilva.solutions@gmail.com
+"     ____
+"    / __ \   __
+"   / / / /__/ / Danny Dasilva
+"  / /_/ / _  /  dannydasilva.solutions@gmail.com
 " /____,'\_,_/   https://github.com/Danny-Dasilva
 " 
 " A customized init.vim for neovim (https://neovim.io/)
@@ -62,7 +65,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     "Theme
     "Plug 'christianchiarulli/nvcode-color-schemes.vim'
     "Plug 'tomasiser/vim-code-dark'
-    Plug 'wojciechkepka/vim-github-dark'
+    "Plug 'wojciechkepka/vim-github-dark'
+    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
     Plug 'itchyny/lightline.vim'                                              " Lightline statusbar
     Plug 'mengelbrecht/lightline-bufferline'
     Plug 'preservim/tagbar'
@@ -133,7 +137,7 @@ nnoremap <leader>q <C-w>o
 " 4. COLORS AND STATUS LINE
 " ==============================================================================
 let g:lightline = {
-      \ 'colorscheme': 'ghdark',
+            \ 'colorscheme': 'catppuccin',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
@@ -163,7 +167,8 @@ hi Comment cterm=italic
 "let g:codedark_terminal_italics=1
 "let g:codedark_termcolors=256
 syntax on
-colorscheme ghdark 
+let g:catppuccin_flavour = "macchiato" " latte, frappe, macchiato, mocha
+colorscheme catppuccin
 
 set encoding=UTF-8
 
