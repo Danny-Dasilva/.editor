@@ -10,7 +10,7 @@ cmd + alt + shift - m : yabai -m window --toggle zoom-parent
 shift + alt - 0 : yabai -m space --balance
 
 #cmd + shift - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
-cmd - return : kitty 
+cmd - return : kitty -d ~
 # move window
 alt - h: yabai -m window --warp west
 alt - j : yabai -m window --warp south
